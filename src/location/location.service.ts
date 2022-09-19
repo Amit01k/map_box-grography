@@ -18,12 +18,14 @@ export class LocationService {
 
 
   create(createLocationDto: location_location): Observable<location_location> {
+    console.log(createLocationDto);
+
     return from(this.Location.save(createLocationDto))
   }
 
-  // findAll() {
-  //   return `This action returns all location`;
-  // }
+  findAll() {
+    return from(this.Location.find())
+  }
 
   // findOne(id: number) {
   //   return `This action returns a #${id} location`;
