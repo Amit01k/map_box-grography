@@ -8,6 +8,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { readFileSync } from 'fs';
 import { parse } from "papaparse"
+import { connected } from 'process';
 @Controller('gisdata')
 export class LocationController {
   constructor(private readonly locationService: LocationService) { }
@@ -49,13 +50,13 @@ export class LocationController {
   // }
 
   @Post('file')
-  @UseInterceptors(
-    FileInterceptor('file_asset', {
-      storage: diskStorage({
-        destination: './files',
-      })
-    })
-  )
+  // @UseInterceptors(
+  //   FileInterceptor('file_asset', {
+  //     storage: diskStorage({
+  //       destination: './files',
+  //     })
+  //   })
+  // )
 
   async uploadFile() {
     const csvFile = readFileSync('files/1.csv')
@@ -67,33 +68,40 @@ export class LocationController {
       complete: (results) => results.data,
     });
     /////////////////////////////////
-    console.log(parsedCsv)
-    console.log("parsedCsv", parsedCsv.data)
-    const add = {
-      // pk_id: parsedCsv.data.pk_id,
-      lat: parsedCsv.data[0].lat,
-      long: parsedCsv.data[0].long,
-      City_Name: parsedCsv.data[0].city_name,
+    console.log(parsedCsv.data)
 
-      // created_at: new Date(),
-      // updated_at: new Date()
-    };
-    console.log('Data: ', add)
+    var a = [1, 2, 3, 4, 5]
+    for (var i of a) {
+      console.log(i)
+    }
 
-    return this.locationService.create(add);
+    for (let data of parsedCsv.data) {
+      console.log("this is come from first looop data", data)
+    }
+    var add = {}
+    for (let i of parsedCsv.data) {
+      console.log("this data come from loop", i)
+      //console.log("parsedCsv", parsedCsv.data)
+      var point = { type: 'Point', coordinates: [i.lat, i.long] };
+      add = {
+        // pk_id: parsedCsv.data.pk_id,
+        lat: i.lat,
+        long: i.long,
+        City_Name: i.city_name,
+        location: point,
 
+      };
+
+      console.log('Data: ', add)
+      //return this.locationService.create(add);
+      console.log(this.locationService.create(add))
+      //return "data added!!!!!!!!!!!!!!!!!!!!!!!"
+    }
     ////////////////////////////
-
-
-
-
-
+    return "data stored in databse!!!!!!!!!!!!!!!!!!!!!!!"
     console.log(parsedCsv)
 
-    //improtant 
-    //return parsedCsv.data[0].id;
-    //{}=   parsedCsv
-    //console.log(typeof (parsedCsv.data.id))
+
   }
 
 

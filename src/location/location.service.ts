@@ -18,7 +18,7 @@ export class LocationService {
 
 
   create(createLocationDto: location_location): Observable<location_location> {
-    console.log(createLocationDto);
+    //console.log(createLocationDto);
 
     return from(this.Location.save(createLocationDto))
   }
