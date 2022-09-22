@@ -6,12 +6,16 @@ import { type } from "os";
 export class Location {
     @PrimaryGeneratedColumn('increment')
     pk_id: number;
+
     @Column({ type: 'decimal', nullable: true })
     lat: number;
+
     @Column({ type: 'decimal', nullable: true })
     long: number;
+
     @Column({ nullable: true })
     City_Name: string;
+
     @Index({ spatial: true })
     @Column({
         type: 'geography',
