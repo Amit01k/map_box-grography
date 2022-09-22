@@ -1,14 +1,7 @@
 import { Column, Index, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
-import { Point } from "geojson"
-export class CreateLocationDto {
-    // @PrimaryColumn()
-    // id: number;
-
-    // @Column()
-    // lat: string;
-
-    // @Column()
-    // lag: string;
+import {Point} from "geojson"
+export class lineStingdto {
+   
     @PrimaryGeneratedColumn('increment')
     pk_id: number;
     @Column()

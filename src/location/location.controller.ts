@@ -9,6 +9,7 @@ import { diskStorage } from 'multer';
 import { readFileSync } from 'fs';
 import { parse } from "papaparse"
 import { connected } from 'process';
+import { Parcel } from './entities/polygon.entity';
 @Controller('gisdata')
 export class LocationController {
   constructor(private readonly locationService: LocationService) { }
@@ -20,7 +21,7 @@ export class LocationController {
 
   @Post("/msg")
   messagePost() {
-    return "ndsfgsdfgbufdguf"
+    return "Hello Amit"
   }
 
   @Post()
@@ -35,7 +36,18 @@ export class LocationController {
   }
 
 
+  @Post('polygon')
+  async createParcelPoint(
+    @Body()
+    createParcelPointDto: Parcel): Promise<Parcel> {
+    console.log(createParcelPointDto)
+    return this.locationService.createParcel(createParcelPointDto)
+  }
 
+  @Get("polygon")
+  polygon() {
+    return this.locationService.findAllPolygon();
+  }
   // @Post('file')
   // @UseInterceptors(
   //   FileInterceptor('file_asset', {
