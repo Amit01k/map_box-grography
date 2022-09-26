@@ -10,6 +10,7 @@ import { readFileSync } from 'fs';
 import { parse } from "papaparse"
 import { connected } from 'process';
 import { Parcel } from './entities/polygon.entity';
+import { linestringentity } from './entities/line-string.entity';
 @Controller('gisdata')
 export class LocationController {
   constructor(private readonly locationService: LocationService) { }
@@ -114,6 +115,23 @@ export class LocationController {
     console.log(parsedCsv)
 
 
+
+
+
+  }
+
+
+  @Post('/linestring')
+  async linePoint(@Body()
+  createlinePointDto: linestringentity): Promise<linestringentity> {
+    console.log(createlinePointDto)
+    return this.locationService.createLinePoint(createlinePointDto)
+  }
+
+
+  @Get('/linestring')
+  lineStringData() {
+    return this.locationService.lineString()
   }
 
 
